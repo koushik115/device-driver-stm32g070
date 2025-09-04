@@ -144,6 +144,43 @@ typedef struct {
 	volatile uint32_t GPIOx_AFRL;
 	volatile uint32_t GPIOx_AFRH;
 	volatile uint32_t GPIOx_BRR;
-};
+}GPIO_RegDef_t;
+
+/*
+ * =============================================================================
+ *  Peripheral Definitions
+ * =============================================================================
+ */
+
+#define RCC 			((RCC_RegDef_t *)RCC_BASE)
+
+#define GPIOA			((GPIO_RegDef_t *)GPIOA_BASE)
+#define GPIOB			((GPIO_RegDef_t *)GPIOB_BASE)
+#define GPIOC			((GPIO_RegDef_t *)GPIOC_BASE)
+#define GPIOD			((GPIO_RegDef_t *)GPIOD_BASE)
+#define GPIOE			((GPIO_RegDef_t *)GPIOE_BASE)
+#define GPIOF			((GPIO_RegDef_t *)GPIOF_BASE)
+
+
+#define GPIOA_PCLK_EN()	(RCC->RCC_IOPENR |= (1 << 0))
+#define GPIOB_PCLK_EN()	(RCC->RCC_IOPENR |= (1 << 1))
+#define GPIOC_PCLK_EN()	(RCC->RCC_IOPENR |= (1 << 2))
+#define GPIOD_PCLK_EN()	(RCC->RCC_IOPENR |= (1 << 3))
+#define GPIOE_PCLK_EN()	(RCC->RCC_IOPENR |= (1 << 4))
+#define GPIOF_PCLK_EN()	(RCC->RCC_IOPENR |= (1 << 5))
+
+#define GPIOA_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 0))
+#define GPIOB_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 1))
+#define GPIOC_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 2))
+#define GPIOD_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 3))
+#define GPIOE_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 4))
+#define GPIOF_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 5))
+
+#define GPIOA_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 0); RCC->RCC_IOPRSTR &= ~(1 << 0);) while(0)
+#define GPIOB_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 1); RCC->RCC_IOPRSTR &= ~(1 << 1);) while(0)
+#define GPIOC_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 2); RCC->RCC_IOPRSTR &= ~(1 << 2);) while(0)
+#define GPIOD_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 3); RCC->RCC_IOPRSTR &= ~(1 << 3);) while(0)
+#define GPIOE_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 4); RCC->RCC_IOPRSTR &= ~(1 << 4);) while(0)
+#define GPIOF_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 5); RCC->RCC_IOPRSTR &= ~(1 << 5);) while(0)
 
 #endif /* INC_STM32G0B0_H_ */
