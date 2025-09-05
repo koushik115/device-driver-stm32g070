@@ -25,11 +25,11 @@ The goal is to build a complete set of peripheral drivers for learning and deepe
 
 
 ##  Example Usage
-#include "stm32g070_gpio_driver.h"
+    #include "stm32g070_gpio_driver.h"
 
-int main(void) {
+    int main(void) {
+    
     GPIO_Handle_t gpioLed;
-
     gpioLed.pGPIOx = GPIOA;
     gpioLed.GPIO_PinConfig.GPIO_PinNumber = 5;          // PA5 (on-board LED)
     gpioLed.GPIO_PinConfig.GPIO_PinMode   = GPIO_MODE_OUT;
@@ -44,7 +44,7 @@ int main(void) {
         GPIO_ToggleOutputPin(GPIOA, 5);
         for (volatile int i = 0; i < 100000; i++);  // simple delay
     }
-}
+    }
 
 ## Requirements
 
