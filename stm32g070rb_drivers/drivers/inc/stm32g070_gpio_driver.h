@@ -87,7 +87,7 @@ typedef struct {
 /*
  * Peripheral Clock Control
  */
-void GPIO_PeripheralClockControl(GPIO_RegDef_t *pGPIOx, uint8_t Enable);
+void GPIO_PeripheralClockControl(GPIO_RegDef_t *pGPIOx, uint8_t enable);
 
 /*
  * Initialization and De-Initialization
@@ -101,7 +101,7 @@ void GPIO_Deinit(GPIO_RegDef_t *pGPIOx);
 uint8_t GPIOx_ReadInputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
 uint16_t GPIOx_ReadInputPort(GPIO_RegDef_t *pGPIOx);
 void GPIOx_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t value);
-void GPIOx_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint8_t value);
+void GPIOx_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t value);
 void GPIOx_TogglePin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber);
 
 /*

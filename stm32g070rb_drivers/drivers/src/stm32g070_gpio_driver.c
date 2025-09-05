@@ -11,7 +11,7 @@
  * Peripheral Clock Setup
  */
 
-void GPIO_PeriphClockControl(GPIO_RegDef_t *pGPIOx, uint8_t enable) {
+void GPIO_PeripheralClockControl(GPIO_RegDef_t *pGPIOx, uint8_t enable) {
     if (enable) {
         if (pGPIOx == GPIOA) {
             GPIOA_PCLK_EN();
@@ -47,7 +47,7 @@ void GPIO_PeriphClockControl(GPIO_RegDef_t *pGPIOx, uint8_t enable) {
  * Initialization and De-Initialization
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
-	uint8_t regValue = 0x00;
+	uint32_t regValue = 0x00;
 
 	// Pin Configuration
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG) {	// Non-Interrupt Mode
@@ -92,3 +92,54 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 	}
 }
 
+void GPIO_Deinit(GPIO_RegDef_t *pGPIOx) {
+    if (pGPIOx == GPIOA) {
+    	GPIOA_REG_RESET();
+    } else if (pGPIOx == GPIOB) {
+    	GPIOB_REG_RESET();
+    } else if (pGPIOx == GPIOC) {
+        GPIOC_REG_RESET();
+    } else if (pGPIOx == GPIOD) {
+        GPIOD_REG_RESET();
+    } else if (pGPIOx == GPIOE) {
+        GPIOE_REG_RESET();
+    } else if (pGPIOx == GPIOF) {
+        GPIOF_REG_RESET();
+    }
+}
+
+/*
+ * Data Read and Write
+ */
+uint8_t GPIOx_ReadInputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber) {
+	uint8_t pinValue = 0x00;
+
+	pinValue = (uint8_t)((pGPIOx->GPIOx_IDR >> pinNumber) & 0x00000001);
+
+	return pinValue;
+}
+
+uint16_t GPIOx_ReadInputPort(GPIO_RegDef_t *pGPIOx) {
+	uint16_t portValue = 0x00;
+
+	portValue = (uint16_t)((pGPIOx->GPIOx_IDR) & 0x0000FFFF);
+
+	return portValue;
+}
+
+void GPIOx_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t value) {
+	pGPIOx->GPIOx_ODR &= ~(0x01 << pinNumber);
+
+	// Write the value into the register
+	pGPIOx->GPIOx_ODR |= ((value & 0x01) << pinNumber);
+}
+
+void GPIOx_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t value) {
+	pGPIOx->GPIOx_ODR &= ~(0x0000FFFF);
+
+	pGPIOx->GPIOx_ODR |= ((value & 0x0000FFFF));
+}
+
+void GPIOx_TogglePin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber) {
+	pGPIOx->GPIOx_ODR ^= (0x01 << pinNumber);
+}

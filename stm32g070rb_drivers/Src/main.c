@@ -17,13 +17,35 @@
  */
 
 #include <stdint.h>
+#include <stm32g0b0.h>
+#include <stm32g070_gpio_driver.h>
 
 #if !defined(__SOFT_FP__) && defined(__ARM_FP)
   #warning "FPU is not initialized, but the project is compiling for an FPU. Please initialize the FPU before use."
 #endif
 
+static void delayUS(uint32_t delay) {
+	while(--delay);
+}
 int main(void)
 {
+	GPIO_Handle_t GPIOUserConfig;
+
+	GPIOUserConfig.pGPIOx = GPIOA;
+	GPIOUserConfig.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_5;
+	GPIOUserConfig.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUTPUT;
+	GPIOUserConfig.GPIO_PinConfig.GPIO_PullUpPullDownConfig = GPIO_NO_PULLUP_PULLDOWN;
+	GPIOUserConfig.GPIO_PinConfig.GPIO_OutputType = GPIO_OUTPUT_PUSH_PULL;
+	GPIOUserConfig.GPIO_PinConfig.GPIO_OutputSpeed = GPIO_HIGH_SPEED;
+
+	GPIO_PeripheralClockControl(GPIOA, ENABLE);
+
+	GPIO_Init(&GPIOUserConfig);
+
+
     /* Loop forever */
-	for(;;);
+	for(;;) {
+		GPIOx_TogglePin(GPIOA, GPIO_PIN_NO_5);
+		delayUS(250000);
+	}
 }

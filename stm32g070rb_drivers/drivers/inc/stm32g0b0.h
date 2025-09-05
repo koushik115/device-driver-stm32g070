@@ -11,6 +11,18 @@
 
 #include <stdint.h>
 
+
+/*
+ * Generic Macros
+ */
+#define SET							1
+#define RESET						0
+#define GPIO_PIN_SET				SET
+#define GPIO_PIN_RESET				RESET
+#define ENABLE						SET
+#define DISABLE						RESET
+
+
 /*
  * Memory Base Addresses
  */
@@ -176,11 +188,12 @@ typedef struct {
 #define GPIOE_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 4))
 #define GPIOF_PCLK_DS()	(RCC->RCC_IOPENR &= ~(1 << 5))
 
-#define GPIOA_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 0); RCC->RCC_IOPRSTR &= ~(1 << 0);) while(0)
-#define GPIOB_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 1); RCC->RCC_IOPRSTR &= ~(1 << 1);) while(0)
-#define GPIOC_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 2); RCC->RCC_IOPRSTR &= ~(1 << 2);) while(0)
-#define GPIOD_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 3); RCC->RCC_IOPRSTR &= ~(1 << 3);) while(0)
-#define GPIOE_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 4); RCC->RCC_IOPRSTR &= ~(1 << 4);) while(0)
-#define GPIOF_REG_RESET()	do (RCC->RCC_IOPRSTR |= (1 << 5); RCC->RCC_IOPRSTR &= ~(1 << 5);) while(0)
+#define GPIOA_REG_RESET() do { RCC->RCC_IOPRSTR |=  (1 << 0); RCC->RCC_IOPRSTR &= ~(1 << 0); } while(0)
+#define GPIOB_REG_RESET() do { RCC->RCC_IOPRSTR |=  (1 << 1); RCC->RCC_IOPRSTR &= ~(1 << 1); } while(0)
+#define GPIOC_REG_RESET() do { RCC->RCC_IOPRSTR |=  (1 << 2); RCC->RCC_IOPRSTR &= ~(1 << 2); } while(0)
+#define GPIOD_REG_RESET() do { RCC->RCC_IOPRSTR |=  (1 << 3); RCC->RCC_IOPRSTR &= ~(1 << 3); } while(0)
+#define GPIOE_REG_RESET() do { RCC->RCC_IOPRSTR |=  (1 << 4); RCC->RCC_IOPRSTR &= ~(1 << 4); } while(0)
+#define GPIOF_REG_RESET() do { RCC->RCC_IOPRSTR |=  (1 << 5); RCC->RCC_IOPRSTR &= ~(1 << 5); } while(0)
+
 
 #endif /* INC_STM32G0B0_H_ */
