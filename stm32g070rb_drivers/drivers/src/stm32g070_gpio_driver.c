@@ -14,31 +14,31 @@
 void GPIO_PeripheralClockControl(GPIO_RegDef_t *pGPIOx, uint8_t enable) {
     if (enable) {
         if (pGPIOx == GPIOA) {
-            GPIOA_PCLK_EN();
+            GPIOA_PCLK_EN();	// Enable Cock for GPIOA
         } else if (pGPIOx == GPIOB) {
-            GPIOB_PCLK_EN();
+            GPIOB_PCLK_EN();	// Enable Cock for GPIOB
         } else if (pGPIOx == GPIOC) {
-            GPIOC_PCLK_EN();
+            GPIOC_PCLK_EN();	// Enable Cock for GPIOC
         } else if (pGPIOx == GPIOD) {
-            GPIOD_PCLK_EN();
+            GPIOD_PCLK_EN();	// Enable Cock for GPIOD
         } else if (pGPIOx == GPIOE) {
-            GPIOE_PCLK_EN();
+            GPIOE_PCLK_EN();	// Enable Cock for GPIOE
         } else if (pGPIOx == GPIOF) {
-            GPIOF_PCLK_EN();
+            GPIOF_PCLK_EN();	// Enable Cock for GPIOF
         }
     } else {
         if (pGPIOx == GPIOA) {
-            GPIOA_PCLK_DS();
+            GPIOA_PCLK_DS();	// Disable Cock for GPIOA
         } else if (pGPIOx == GPIOB) {
-            GPIOB_PCLK_DS();
+            GPIOB_PCLK_DS();	// Disable Cock for GPIOB
         } else if (pGPIOx == GPIOC) {
-            GPIOC_PCLK_DS();
+            GPIOC_PCLK_DS();	// Disable Cock for GPIOC
         } else if (pGPIOx == GPIOD) {
-            GPIOD_PCLK_DS();
+            GPIOD_PCLK_DS();	// Disable Cock for GPIOD
         } else if (pGPIOx == GPIOE) {
-            GPIOE_PCLK_DS();
+            GPIOE_PCLK_DS();	// Disable Cock for GPIOE
         } else if (pGPIOx == GPIOF) {
-            GPIOF_PCLK_DS();
+            GPIOF_PCLK_DS();	// Disable Cock for GPIOF
         }
     }
 }
@@ -94,17 +94,17 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle) {
 
 void GPIO_Deinit(GPIO_RegDef_t *pGPIOx) {
     if (pGPIOx == GPIOA) {
-    	GPIOA_REG_RESET();
+    	GPIOA_REG_RESET();  // Reset Register content of GPIOA
     } else if (pGPIOx == GPIOB) {
-    	GPIOB_REG_RESET();
+    	GPIOB_REG_RESET();	// Reset Register content of GPIOB
     } else if (pGPIOx == GPIOC) {
-        GPIOC_REG_RESET();
+        GPIOC_REG_RESET();	// Reset Register content of GPIOC
     } else if (pGPIOx == GPIOD) {
-        GPIOD_REG_RESET();
+        GPIOD_REG_RESET();	// Reset Register content of GPIOD
     } else if (pGPIOx == GPIOE) {
-        GPIOE_REG_RESET();
+        GPIOE_REG_RESET();	// Reset Register content of GPIOE
     } else if (pGPIOx == GPIOF) {
-        GPIOF_REG_RESET();
+        GPIOF_REG_RESET();	// Reset Register content of GPIOF
     }
 }
 
@@ -114,6 +114,7 @@ void GPIO_Deinit(GPIO_RegDef_t *pGPIOx) {
 uint8_t GPIOx_ReadInputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber) {
 	uint8_t pinValue = 0x00;
 
+	// Read the value from GPIOx_IDR register
 	pinValue = (uint8_t)((pGPIOx->GPIOx_IDR >> pinNumber) & 0x00000001);
 
 	return pinValue;
@@ -122,6 +123,7 @@ uint8_t GPIOx_ReadInputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber) {
 uint16_t GPIOx_ReadInputPort(GPIO_RegDef_t *pGPIOx) {
 	uint16_t portValue = 0x00;
 
+	// Read the value from GPIOx_IDR register
 	portValue = (uint16_t)((pGPIOx->GPIOx_IDR) & 0x0000FFFF);
 
 	return portValue;
@@ -130,13 +132,14 @@ uint16_t GPIOx_ReadInputPort(GPIO_RegDef_t *pGPIOx) {
 void GPIOx_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t pinNumber, uint8_t value) {
 	pGPIOx->GPIOx_ODR &= ~(0x01 << pinNumber);
 
-	// Write the value into the register
+	// Write the value into the GPIOx_ODR register
 	pGPIOx->GPIOx_ODR |= ((value & 0x01) << pinNumber);
 }
 
 void GPIOx_WriteToOutputPort(GPIO_RegDef_t *pGPIOx, uint16_t value) {
 	pGPIOx->GPIOx_ODR &= ~(0x0000FFFF);
 
+	// Write the value into the GPIOx_ODR register
 	pGPIOx->GPIOx_ODR |= ((value & 0x0000FFFF));
 }
 

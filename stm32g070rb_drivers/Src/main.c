@@ -29,8 +29,10 @@ static void delayUS(uint32_t delay) {
 }
 int main(void)
 {
+	// Structure handle for the configuration
 	GPIO_Handle_t GPIOUserConfig;
 
+	//  Configuration for the GPIOA Pin 5
 	GPIOUserConfig.pGPIOx = GPIOA;
 	GPIOUserConfig.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_5;
 	GPIOUserConfig.GPIO_PinConfig.GPIO_PinMode = GPIO_MODE_OUTPUT;
@@ -38,13 +40,16 @@ int main(void)
 	GPIOUserConfig.GPIO_PinConfig.GPIO_OutputType = GPIO_OUTPUT_PUSH_PULL;
 	GPIOUserConfig.GPIO_PinConfig.GPIO_OutputSpeed = GPIO_HIGH_SPEED;
 
+	// Enable the Clock
 	GPIO_PeripheralClockControl(GPIOA, ENABLE);
 
+	// Initialize the GPIOA
 	GPIO_Init(&GPIOUserConfig);
 
 
     /* Loop forever */
 	for(;;) {
+		// Toggle the Pin
 		GPIOx_TogglePin(GPIOA, GPIO_PIN_NO_5);
 		delayUS(250000);
 	}
