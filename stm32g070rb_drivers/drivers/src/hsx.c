@@ -47,6 +47,7 @@ void hsi_mco_init(void) {
 
 	volatile uint32_t *pGpioxAfrhReg = (volatile uint32_t *)(GPIOx_AFHR_ADDR);
 
+
 	// Configure the Alternate functionality of PA8
 	*pGpioxAfrhReg &= ~(0x0F << 0);
 }
